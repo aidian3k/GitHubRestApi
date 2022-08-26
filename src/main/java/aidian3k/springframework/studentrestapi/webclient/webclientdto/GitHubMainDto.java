@@ -8,4 +8,5 @@ public class GitHubMainDto {
     private String html_url;
     private String clone_url;
     private String language;
+    private String description;
 }

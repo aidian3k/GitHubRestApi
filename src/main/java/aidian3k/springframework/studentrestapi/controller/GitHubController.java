@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 public class GitHubController {
     private final GitHubApiService gitHubApiService;
@@ -23,7 +21,7 @@ public class GitHubController {
     }
 
     @GetMapping("statistics")
-    public List<GitHubApiResponse> getSingleUser(@RequestParam(required = false, defaultValue = DEFAULT_USER) String username) {
+    public GitHubApiResponse getSingleUser(@RequestParam(required = false, defaultValue = DEFAULT_USER) String username) {
         return gitHubApiService.getSingleUser(username);
     }
 }

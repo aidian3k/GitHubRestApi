@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @Slf4j
 public class GitHubApiService {
@@ -18,7 +16,7 @@ public class GitHubApiService {
     }
 
     @Cacheable(cacheNames = "getSingleUser")
-    public List<GitHubApiResponse> getSingleUser(String username) {
+    public GitHubApiResponse getSingleUser(String username) {
 
         return gitHubWebClient.getUserStats(username);
     }

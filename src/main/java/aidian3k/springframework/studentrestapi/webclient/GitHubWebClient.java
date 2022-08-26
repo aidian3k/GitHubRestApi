@@ -6,20 +6,17 @@ import aidian3k.springframework.studentrestapi.model.GitHubApiResponse;
 import aidian3k.springframework.studentrestapi.model.Repository;
 import aidian3k.springframework.studentrestapi.model.User;
 import aidian3k.springframework.studentrestapi.webclient.webclientdto.GitHubMainDto;
+import aidian3k.springframework.studentrestapi.webclient.webclientdto.GitHubUserDto;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class GitHubWebClient {
     private final RestTemplate restTemplate = new RestTemplate();
     private static final String GIT_HUB_API_URL = "https://api.github.com/users/";
 
-    public List<GitHubApiResponse> getUserStats(String username) {
+    public GitHubApiResponse getUserStats(String username) {
         GitHubMainDto[] gitHubMainDto;
 
         try {
@@ -27,10 +24,24 @@ public class GitHubWebClient {
                     getForObject(GIT_HUB_API_URL + "{username}" + "/repos", GitHubMainDto[].class, username);
 
             assert gitHubMainDto != null;
-            return Arrays.
-                    stream(gitHubMainDto).
-                    map(GitHubWebClient::gitHubApiResponseConverter).
-                    collect(Collectors.toList());
+
+            User user = mapSingleUser(gitHubMainDto[0].getOwner());
+            Repository [] gitHubRepositories = new Repository[gitHubMainDto.length];
+
+            if(user == null) {
+                throw new UserNotFoundException("User with username = %s has not been found!".formatted(username), GIT_HUB_API_URL + username + "/repos");
+            }
+
+            for(int i = 0 ; i < gitHubMainDto.length ; ++i) {
+                GitHubMainDto response = gitHubMainDto[i];
+                gitHubRepositories[i] = mapSingleRepository(response);
+            }
+
+            return GitHubApiResponse.builder()
+                    .user(user)
+                    .repositories(gitHubRepositories)
+                    .build();
+
 
         } catch (RestClientResponseException exception) {
             if (exception.getRawStatusCode() == 404) {
@@ -43,25 +54,23 @@ public class GitHubWebClient {
         return null;
     }
 
-    private static GitHubApiResponse gitHubApiResponseConverter(GitHubMainDto gitHubMainDto) {
-        User user = User.builder()
-                .id(gitHubMainDto.getOwner().getId())
-                .login(gitHubMainDto.getOwner().getLogin())
-                .html_url(gitHubMainDto.getOwner().getHtml_url())
-                .build();
-
-        Repository repository = Repository.
-                builder()
+    private static Repository mapSingleRepository(GitHubMainDto gitHubMainDto) {
+        return Repository.builder()
                 .name(gitHubMainDto.getName())
                 .clone_url(gitHubMainDto.getClone_url())
-                .language(gitHubMainDto.getLanguage() == null ? "READ.ME" : gitHubMainDto.getLanguage())
                 .html_url(gitHubMainDto.getHtml_url())
-                .build();
-
-        return GitHubApiResponse.
-                builder().
-                user(user).
-                repository(repository)
+                .language(gitHubMainDto.getLanguage() == null ? "READ.ME" : gitHubMainDto.getLanguage())
+                .clone_url(gitHubMainDto.getClone_url())
+                .description(gitHubMainDto.getDescription())
                 .build();
     }
+
+    private static User mapSingleUser(GitHubUserDto gitHubUserDto) {
+        return User.builder()
+                .id(gitHubUserDto.getId())
+                .login(gitHubUserDto.getLogin())
+                .html_url(gitHubUserDto.getHtml_url())
+                .build();
+    }
+
 }
