@@ -17,7 +17,9 @@ That is why, I wanted to simplify the response just to information about user re
 
 * Here I present simple response of the api, which consits of every user repository on GitHub and its information.
 
-![Zrzut ekranu 2022-08-25 o 20 53 53](https://user-images.githubusercontent.com/93425971/186745737-ecc3a132-a12a-49ad-8e40-8be943a1a5fc.png)
+![Zrzut ekranu 2022-08-26 o 13 53 20](https://user-images.githubusercontent.com/93425971/186897729-65b89098-05b5-46e6-b356-07af871592be.png)
+
+
 
 # How to run project? 
 
@@ -34,4 +36,5 @@ every hour. I did not implement any possibility to add such token authorization.
 information about the api, go to: localhost:8080/swagger-ui.html after running the aplication.
 
 * Sample api response after localhost:8080/statistics:
-![Zrzut ekranu 2022-08-25 o 21 14 34](https://user-images.githubusercontent.com/93425971/186749498-ad6730aa-f5f9-466c-8e81-b807b731afa5.png)
+![Zrzut ekranu 2022-08-26 o 13 51 09](https://user-images.githubusercontent.com/93425971/186897346-891b0064-7f66-4050-a777-199761a6f71b.png)
+
