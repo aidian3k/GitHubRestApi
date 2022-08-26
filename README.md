@@ -17,7 +17,9 @@ That is why, I wanted to simplify the response just to information about user re
 
 * Here I present simple response of the api, which consits of every user repository on GitHub and its information.
 
-![Zrzut ekranu 2022-08-25 o 20 53 53](https://user-images.githubusercontent.com/93425971/186745737-ecc3a132-a12a-49ad-8e40-8be943a1a5fc.png)
+![Zrzut ekranu 2022-08-26 o 13 53 20](https://user-images.githubusercontent.com/93425971/186897729-65b89098-05b5-46e6-b356-07af871592be.png)
+
+
 
 # How to run project? 
 
