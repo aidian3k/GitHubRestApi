@@ -34,4 +34,5 @@ every hour. I did not implement any possibility to add such token authorization.
 information about the api, go to: localhost:8080/swagger-ui.html after running the aplication.
 
 * Sample api response after localhost:8080/statistics:
-![Zrzut ekranu 2022-08-25 o 21 14 34](https://user-images.githubusercontent.com/93425971/186749498-ad6730aa-f5f9-466c-8e81-b807b731afa5.png)
+![Zrzut ekranu 2022-08-26 o 13 51 09](https://user-images.githubusercontent.com/93425971/186897346-891b0064-7f66-4050-a777-199761a6f71b.png)
+
